@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 // Ioc: 사용자 흐름으로 제어되는 것이 아니라 프로그램 자체가 제어권을 가진다
 
 public interface UserRepository extends JpaRepository<User, Integer> {
+    public User findByUsername(String username); // Jpa query methods
 
 }

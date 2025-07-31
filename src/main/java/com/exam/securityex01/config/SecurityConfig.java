@@ -23,12 +23,14 @@ public class SecurityConfig{
         http.csrf(CsrfConfigurer::disable); // csrf 비활성화
         http.authorizeHttpRequests(authorize ->
             authorize
-                .requestMatchers("/user/**").authenticated() // 별도로 인증이 필요한 url 적어두기
+                .requestMatchers("/user/**").authenticated() // 별도로 인증이 필요한 url 적어두기 -> 인증만 되면 들어갈 수 있는 url
                 .requestMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER") // 역할 필요하다
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN") // 로그인 안하고 접근하면 403 에러 뜬다
                 .anyRequest().permitAll()) // 나머지 경로는 모두 허용되어있다.
                 .formLogin(form -> form
                     .loginPage("/loginForm") // 커스텀 로그인 페이지 -> 만일 로그인이 안되어 있으면 login 페이지로 바로 가게 만들어줌
+                    .loginProcessingUrl("/login") // /login 주소가 호출되면 시큐리티가 낚아채서 대신 로그인을 진행한다.
+                    .defaultSuccessUrl("/")
                     .permitAll()
                 );
 
