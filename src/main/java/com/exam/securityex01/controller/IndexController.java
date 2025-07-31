@@ -2,6 +2,8 @@ package com.exam.securityex01.controller;
 import com.exam.securityex01.model.User;
 import com.exam.securityex01.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -62,6 +64,18 @@ public class IndexController {
         System.out.println(user);
         return "redirect:/loginForm";
     }
-
+    @Secured("ROLE_ADMIN") // 특정 권한을 가질때만 접근 가능
+    @GetMapping("/info")
+    public @ResponseBody String info(){
+        return "개인정보";
+    }
+    @PreAuthorize("hasRole('ROLE_MANAGER') or hasRole('Role_ADMIN')") // data라는 method 실행 직전에 실행
+    // PostAuthorize -> 함수 실행 이후에 확인
+    @GetMapping("/data")
+    public @ResponseBody String data(){
+        return "데이터 정보";
+    }
+    // info, data 모두 접근 권한 지정하는 방법
+    // global로 선언해도 됨
 
 }
