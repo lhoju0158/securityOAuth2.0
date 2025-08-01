@@ -23,10 +23,16 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @Data
 public class PrincipalDetails implements UserDetails, OAuth2User {
     private User user; // composition
+    private Map<String, Object> attributes;
 
+    // 일반 로그인
     public PrincipalDetails(User user) {
-        super();
         this.user = user;
+    }
+    // OAuth 로그인
+    public PrincipalDetails(User user, Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
     }
 
     @Override
@@ -65,12 +71,12 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public String getName() {
-        return "";
+        return null;
     }
 
     @Override
     public Map<String, Object> getAttributes() {
-        return Map.of();
+        return attributes;
     }
 
     // 해당 User의 권한을 return하는 곳

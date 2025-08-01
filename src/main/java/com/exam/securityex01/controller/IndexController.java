@@ -53,7 +53,8 @@ public class IndexController {
         return "OAuth 세션 정보 확인하기";
     }
     @GetMapping("/user")
-    public @ResponseBody String user(){
+    public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        System.out.println("principal : " + principalDetails.getUser());
         return "user";
     }
     @GetMapping("/admin")
