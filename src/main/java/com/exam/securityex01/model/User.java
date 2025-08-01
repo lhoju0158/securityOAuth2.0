@@ -22,6 +22,8 @@ public class User {
     private String password;
     private String email;
     private String role; //ROLE_USER, ROLE_ADMIN
+    private String provider; // 예) google
+    private String providerId; // google에서 사용되는 id -> sub에 해당함
     @CreationTimestamp
     private Timestamp createDate;
 }
