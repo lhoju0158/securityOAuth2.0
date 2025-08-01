@@ -3,6 +3,7 @@ package com.exam.securityex01.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +17,7 @@ import com.exam.securityex01.config.oauth.PrinclpalOauth2UserService;
 // secured 어노테이션 활성화 + prePostEnabled -> preAuthorize, postAuthorize 어노테이션 활성화
 public class SecurityConfig{
     @Autowired
+    @Lazy
     private PrinclpalOauth2UserService princlpalOauth2UserService;
     // 이렇게 Bean 메소드에 적게 되면
     // 해당 메소드의 리턴되는 오브젝트를 Ioc로 등록해준다.
